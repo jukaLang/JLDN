@@ -15,6 +15,15 @@ namespace JLDN
             if (args.Length == 0) { Console.WriteLine(NO_COMMNAD_ARGUMENTS); exists = true; }
             if (args.Length > 0 && args[0].ToLower() == "init") { manifestInitalizer.initalizeManifest(); exists = true; }
             if (args.Length > 1 && args[0].ToLower() == "dev" && args[1].ToLower()=="cdn") { Console.WriteLine(Directory.GetCurrentDirectory()); exists = true; }
+            
+            // jldn install REPO_AUTHOR REPO_NAME REPO_BRANCH --FLAG
+            if (args.Length >= 3 && args[0].ToLower() == "install")
+            {
+                exists = true;
+                string manifest = JLDN.network.fetchManifest.fetch(args[1], args[2], args[3]);
+            
+            }
+
             return exists;
         }
         public void commandDoesntExist(bool validity)
