@@ -6,9 +6,9 @@ namespace JLDN
 
         static void Main(string[] args)
         {
-            if (args.Length == 0)
+            for ( int i = 0; i < args.Length; i++)
             {
-                Console.WriteLine("JLDN Version 0.0.001");
+                Console.WriteLine(i +": "+ args[i]);
             }
         }
     }
