@@ -41,7 +41,7 @@ We use a encrypted solution when you install packages from **JLDN**. Since Juka'
 ## Install Usage
 *Installs a package using the decentralized network*
 ```bash
-jldn install {git_repo_author} {git_repo} { FLAGS }
+jldn install {git_repo_author} {git_repo} {branch} { FLAGS }
 ```
 
 Flags:
