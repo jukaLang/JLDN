@@ -1,4 +1,5 @@
 ﻿using System;
+using JLDN;
 namespace JLDN
 {
     public class CLI
@@ -6,10 +7,9 @@ namespace JLDN
 
         static void Main(string[] args)
         {
-            for ( int i = 0; i < args.Length; i++)
-            {
-                Console.WriteLine(i +": "+ args[i]);
-            }
+            JLDN.commandHandler commandHandler = new JLDN.commandHandler();
+            bool data = commandHandler.handler(args);
+            commandHandler.commandDoesntExist(data);
         }
     }
 }

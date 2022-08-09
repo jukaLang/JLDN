@@ -8,6 +8,5 @@ namespace JLDN.network
 {
     internal class manifestReader
     {
-        Console.WriteLine()
     }
 }

@@ -3,15 +3,26 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using JLDN.tools;
 namespace JLDN
 {
-    internal class commandHandler
+    public class commandHandler
     {
         string NO_COMMNAD_ARGUMENTS = "Juka Language Decentralized Network\nVersion: 0.0.0";
-        public void handler(String[] args)
+        public bool handler(String[] args)
         {
-            if (args.Length == 0) { Console.WriteLine(NO_COMMNAD_ARGUMENTS); }
+            bool exists = false;
+            if (args.Length == 0) { Console.WriteLine(NO_COMMNAD_ARGUMENTS); exists = true; }
+            if (args.Length > 0 && args[0].ToLower() == "init") { manifestInitalizer.initalizeManifest(); exists = true; }
+            return exists;
+        }
+        public void commandDoesntExist(bool validity)
+        {
+            if (validity == true) { }
+            if (validity == false)
+            {
+                Console.WriteLine("Unkown Command.");
+            }
         }
     }
 }
