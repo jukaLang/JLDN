@@ -8,5 +8,13 @@ namespace JLDN.network
 {
     internal class manifestReader
     {
+        public void repoData()
+        {
+            string repoAuthor, repoMasterBranch, repoName;
+            string dir = Directory.GetCurrentDirectory() + "\\manifest.yaml";
+
+
+
+        }
     }
 }

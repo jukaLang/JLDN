@@ -39,7 +39,8 @@ namespace JLDN.tools
                 +"\nlibrary_directory: \\{2}"
                 +"\nmain_repo_branch: {3}" 
                 +"\nrepo_name: {4}"
-                +"\nrepo_author_name: {5}",pkgName, pkgDescription, libDirectory, repoMainBranch, repoName,repoAuthor);
+                +"\nrepo_author_name: {5}"
+                +"\n\npub_files:\n\t- index.juk",pkgName, pkgDescription, libDirectory, repoMainBranch, repoName,repoAuthor);
             string path = Dir + "\\" + "manifest.yaml";
             using (FileStream fs = File.Create(path, 1024))
             {
