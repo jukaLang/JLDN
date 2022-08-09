@@ -1,0 +1,4 @@
+version: 0.0.0
+package_name: Test Package
+package_description: LOREM IPSUM 
+library_director: ./lib

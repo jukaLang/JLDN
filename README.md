@@ -6,6 +6,7 @@
 - - [**What is the purpose?**](#used-for)
 - - [**How does our decentralized  network work?**](#how-our-decentralized-network-works)
 - [**What is a `manifest.yaml` file?**](#manifest-file)
+- - [**Manifest file format**](#manifest-format)
 - [**Why are installed libraries encrypted?**](#encryption)
 # About
 
@@ -17,6 +18,15 @@ Our decentralized network is how JLDN is able to recieve package data. This incl
 
 # Manifest File
 The `manifest.yaml` file is used to give specifications about a package. This includes the current version, description, and content. 
+
+## Manifest Format 
+The manifest is formated as the following:
+```
+version: 0.0.0
+package_name: Test Package
+package_description: LOREM IPSUM 
+library_director: ./lib
+```
 
 # Encryption 
 We use a encrypted solution when you install packages from **JLDN**. Since Juka's primary target is runtime speed encryption is the fastest way of the Juka runtime to execute.
