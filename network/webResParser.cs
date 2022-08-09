@@ -4,15 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Net;
+
 namespace JLDN.network
 {
     internal class webResParser
     {
-        public static async Task<string> fetchWebResAsync(string url)
+        public static string fetchWebResAsync(string url)
         {
-            HttpClient client = new HttpClient();
-            string data = await client.GetStringAsync(url);
-            return data;
+            System.Net.WebClient client = new System.Net.WebClient();
+            byte[] data = client.DownloadData(url);
+            String html = System.Text.Encoding.UTF8.GetString(data);
+            return html;
+
         }
     }
 }

@@ -11,7 +11,9 @@ namespace JLDN.network
         public static string fetch(string RepoAuthor, string RepoName, string RepoBranch)
         {
             string fetchURL = String.Format("https://raw.githubusercontent.com/{0}/{1}/{2}/manifest.yaml", RepoAuthor, RepoName, RepoBranch);
-            return fetchURL;
+            string data = JLDN.network.webResParser.fetchWebResAsync(fetchURL);
+            Console.WriteLine(data);
+            return data;
         }
     }
 }
