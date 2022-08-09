@@ -10,10 +10,6 @@ namespace JLDN
             {
                 Console.WriteLine("JLDN Version 0.0.001");
             }
-            if (args.Length >= 0 && args[1]=="help")
-            {
-                Console.WriteLine("Help Command Called");
-            }
         }
     }
 }
