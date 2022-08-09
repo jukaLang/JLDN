@@ -10,7 +10,7 @@
 - [**Why are installed libraries encrypted?**](#encryption)
 - [**What are the commands?**](#usage)
 - - [**Install Package**](#install-usage)
-- - [**Bumb Version**](#bump-usage)
+- - [**Bump Version**](#bump-usage)
 # About
 
 ## Used For
