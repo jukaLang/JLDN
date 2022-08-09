@@ -8,6 +8,9 @@
 - [**What is a `manifest.yaml` file?**](#manifest-file)
 - - [**Manifest file format**](#manifest-format)
 - [**Why are installed libraries encrypted?**](#encryption)
+- [**What are the commands?**](#usage)
+- - [**Install Package**](#install-usage)
+- - [**Bumb Version**](#bump-usage)
 # About
 
 ## Used For
@@ -30,3 +33,24 @@ library_director: ./lib
 
 # Encryption 
 We use a encrypted solution when you install packages from **JLDN**. Since Juka's primary target is runtime speed encryption is the fastest way of the Juka runtime to execute.
+
+# Usage
+## Install Usage
+*Installs a package using the decentralized network*
+```bash
+jldn install {git_repo_author} {git_repo} { FLAGS }
+```
+
+Flags:
+<br>`-nm` - Specifies that the repo does not contain a manifest file and you want to install anyways 
+<br>`--force` - Forces to overwrite if package name already exists 
+
+## Bump Usage 
+*Reverts to goes to specified **JLDN** version*
+```bash
+jldn bump {version}
+```
+
+Flags:
+
+**NO FLAGS WERE FOUND FOR THIS COMMAND**
