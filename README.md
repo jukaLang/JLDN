@@ -21,7 +21,7 @@ The `manifest.yaml` file is used to give specifications about a package. This in
 
 ## Manifest Format 
 The manifest is formated as the following:
-```
+```yaml
 version: 0.0.0
 package_name: Test Package
 package_description: LOREM IPSUM 
