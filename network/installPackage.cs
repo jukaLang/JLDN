@@ -24,17 +24,29 @@ namespace JLDN.network
 
         internal class installPackage
     {
-            public static void getPackageInfo(string manifest)
+            public static PACKAGE_INFO getPackageInfo(string manifest)
             {
                 var yaml = @"" + manifest;
-
-            var deserializer = new DeserializerBuilder()
-                .WithNamingConvention(UnderscoredNamingConvention.Instance)  // see height_in_inches in sample yml 
-                .Build();
+                
+                var deserializer = new DeserializerBuilder()
+                    .WithNamingConvention(UnderscoredNamingConvention.Instance)  // see height_in_inches in sample yml 
+                    .Build();
 
             var p = deserializer.Deserialize<PACKAGE_INFO>(yaml);
-            var pn = p.package_name;
-            Console.Write(pn);
+            Console.WriteLine("JLDN: Installing " + p.package_name + " @" + p.version);
+            Console.WriteLine("GitServer: Package LOC format [" + p.repo_author_name + "\\" + p.repo_name + "@" + p.main_repo_branch+"]");
+            return p;
+        }
+        public static void CreateCacheFileForModule(PACKAGE_INFO package)
+        {
+            string path = Directory.GetCurrentDirectory() + "\\juka_modules\\"+package.package_name+".jukc";
+            Console.WriteLine("FS: Writing Cached LIB file");
+            using (FileStream fs = File.Create(path))
+            {
+                byte[] info = new UTF8Encoding(true).GetBytes("");
+                fs.Write(info, 0, info.Length);
+                Console.WriteLine(String.Format("\n\nSucessfuly Installed: {0}@{1}", package.package_name, package.version));
+            }
 
         }
         public static void installPackageFromManifest(string manifest)
@@ -52,7 +64,8 @@ namespace JLDN.network
                         DirectoryInfo di = Directory.CreateDirectory(path);
                         Console.WriteLine("FS: Creating out directory");
                     }
-                    getPackageInfo(manifest);
+                    PACKAGE_INFO info = getPackageInfo(manifest);
+                    CreateCacheFileForModule(info);
 
                 }
                 catch (IOException ioex)
