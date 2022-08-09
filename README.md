@@ -25,10 +25,13 @@ The `manifest.yaml` file is used to give specifications about a package. This in
 ## Manifest Format 
 The manifest is formated as the following:
 ```yaml
-version: 0.0.0
-package_name: Test Package
-package_description: LOREM IPSUM 
-library_director: ./lib
+version: 0.0.1
+package_name: name
+package_description: descr
+library_directory: \lib
+main_repo_branch: main
+repo_name: JLDN
+repo_author_name: jukaLang
 ```
 
 # Encryption 

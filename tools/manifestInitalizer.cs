@@ -28,12 +28,18 @@ namespace JLDN.tools
             string Dir = Directory.GetCurrentDirectory();
             string pkgName = manifestInitalizer.getManifestInfoInput("Package Name: ");
             string pkgDescription = manifestInitalizer.getManifestInfoInput("Package Description: ");
+            string repoMainBranch = manifestInitalizer.getManifestInfoInput("Repo Main Branch: ");
+            string repoName = manifestInitalizer.getManifestInfoInput("Repo Name: ");
+            string repoAuthor = manifestInitalizer.getManifestInfoInput("Repo Author Name: ");
             string libDirectory = manifestInitalizer.getManifestInfoInput("Path to library directory: " + Directory.GetCurrentDirectory().ToString() + "\\");
             string manifestFormat = String.Format(
                 "version: 0.0.1"
                 +"\npackage_name: {0}"
                 +"\npackage_description: {1}"
-                + "\nlibrary_directory: \\{2}", pkgName, pkgDescription, libDirectory);
+                +"\nlibrary_directory: \\{2}"
+                +"\nmain_repo_branch: {3}" 
+                +"\nrepo_name: {4}"
+                +"\nrepo_author_name: {5}",pkgName, pkgDescription, libDirectory, repoMainBranch, repoName,repoAuthor);
             string path = Dir + "\\" + "manifest.yaml";
             using (FileStream fs = File.Create(path, 1024))
             {
