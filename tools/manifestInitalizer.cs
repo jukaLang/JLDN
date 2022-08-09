@@ -12,14 +12,16 @@ namespace JLDN.tools
         {
 
             Console.Write(Prompt);
+            #pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
             dynamic input = Console.ReadLine();
-            bool res = false;
-            if (String.IsNullOrWhiteSpace(input)) { Console.WriteLine("\nField must not be NULL."); res = false; Environment.Exit(0); }
+            #pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
+            if (String.IsNullOrWhiteSpace(input)) { Console.WriteLine("\nField must not be NULL."); Environment.Exit(0); }
             else
             {
-                res = true;
             }
+            #pragma warning disable CS8603
             return input;
+            #pragma warning restore CS8603
         }
         public static void initalizeManifest()
         {
