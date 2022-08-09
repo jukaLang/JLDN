@@ -25,7 +25,11 @@ namespace JLDN.tools
         {
             string Dir = Directory.GetCurrentDirectory();
             string prjName = manifestInitalizer.getManifestInfoInput("Project Name: ");
-            Console.WriteLine(prjName);
+            string pkgName = manifestInitalizer.getManifestInfoInput("Package Name: ");
+            string pkgDescription = manifestInitalizer.getManifestInfoInput("Package Description: ");
+            string libDirectory = manifestInitalizer.getManifestInfoInput("Path to library directory: " + Directory.GetCurrentDirectory().ToString() + "\\");
+
+
         }
     }
 }
