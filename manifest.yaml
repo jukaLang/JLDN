@@ -1,5 +1,5 @@
 version: 0.0.1
-package_name: name
+package_name: JLDN_TEST_PACKAGE
 package_description: descr
 library_directory: \lib
 main_repo_branch: main
