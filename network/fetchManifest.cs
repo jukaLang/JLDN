@@ -12,7 +12,7 @@ namespace JLDN.network
         {
             string fetchURL = String.Format("https://raw.githubusercontent.com/{0}/{1}/{2}/manifest.yaml", RepoAuthor, RepoName, RepoBranch);
             string data = JLDN.network.webResParser.fetchWebResAsync(fetchURL);
-            Console.WriteLine(data);
+            Console.WriteLine("Web server: Fetching manifest from server");
             return data;
         }
     }

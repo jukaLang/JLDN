@@ -21,7 +21,7 @@ namespace JLDN
             {
                 exists = true;
                 string manifest = JLDN.network.fetchManifest.fetch(args[1], args[2], args[3]);
-            
+                JLDN.network.installPackage.installPackageFromManifest(manifest);
             }
 
             return exists;
