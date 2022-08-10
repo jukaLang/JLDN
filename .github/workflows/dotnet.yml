@@ -24,4 +24,4 @@ jobs:
     - name: Test
       run: dotnet test --no-build --verbosity normal
     - name: install
-      run: jldn install jukalang jldn main
+      run: cd .\bin\Debug\net6.0\JLDN.exe && jldn install jukalang jldn main
