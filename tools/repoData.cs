@@ -58,7 +58,7 @@ namespace JLDN.tools
                 }
             }
         }
-        public static async void returnRepoFiles(string repoAuthor, string repoName, string repoBranch, string libFolder)
+        public static async void returnRepoFiles(string repoAuthor, string repoName, string repoBranch, string libFolder, network.PACKAGE_INFO packageInfo)
         {
             Console.WriteLine("Fetching REPO");
             var httpClient = new HttpClient();
@@ -85,7 +85,21 @@ namespace JLDN.tools
                     {
                         Console.WriteLine("DIR: Found " + folders);
                         var url = (string)file["_links"]["self"];
-                        Console.WriteLine(url);
+                        var libContentJson = network.webResParser.fetchWebResAsync(url);
+                        var libContent = (JArray)JsonConvert.DeserializeObject(libContentJson);
+
+                        foreach( var data in libContent)
+                        {
+                            var dataType = (string)data["type"];
+                            if (dataType == "file")
+                            {
+                                var dataName = (string)data["name"];
+                                var dataContent = (string)data["download_url"];
+                                var dataContentString = network.webResParser.fetchWebResAsync(dataContent);
+                                network.installPackage.CreateFileForModule(packageInfo, dataName, dataContentString);
+                            }
+
+                        }
                         return;
                     }
                     else
@@ -93,12 +107,6 @@ namespace JLDN.tools
                         //Console.WriteLine("Error: Manifest file library directory doesn't match.");
                     }
                 }
-                //else if (fileType == "file")
-                //{
-                //    var downloadUrl = (string)file["download_url"];
-                //    // use this URL to download the contents of the file
-                //    Console.WriteLine($"DOWNLOAD: {downloadUrl}");
-                //}
             }
 
         }

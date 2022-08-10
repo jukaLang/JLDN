@@ -51,6 +51,31 @@ namespace JLDN.network
 
         }
 
+        public static void CreateFileForModule(PACKAGE_INFO package, string fileName, dynamic content)
+        {
+            string path = Directory.GetCurrentDirectory() + "\\juka_modules\\" + package.package_name;
+
+            if(Directory.Exists(path))
+            {
+                using (FileStream fs = File.Create(path + "\\" + fileName))
+                {
+                    byte[] info = new UTF8Encoding(true).GetBytes(JLDN.tools.cacheFile.encryptFile(content));
+                    fs.Write(info, 0, info.Length);
+
+                }
+            }
+            else
+            {
+                Directory.CreateDirectory(path);
+                using (FileStream fs = File.Create(path + "\\" + fileName))
+                {
+                    byte[] info = new UTF8Encoding(true).GetBytes(JLDN.tools.cacheFile.encryptFile(content));
+                    fs.Write(info, 0, info.Length);
+
+                }
+            }
+        }
+
         public static void installFlags(String[] args)
         {
             bool isFlags = false;
