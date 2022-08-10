@@ -1,7 +1,7 @@
 version: 0.0.1
 package_name: JLDN_TEST_PACKAGE
 package_description: descr
-library_directory: \lib
+library_directory: tools
 main_repo_branch: main
 repo_name: JLDN
 repo_author_name: jukaLang

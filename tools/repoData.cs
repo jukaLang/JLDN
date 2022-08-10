@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
@@ -57,16 +58,46 @@ namespace JLDN.tools
                 }
             }
         }
-        public static dynamic returnRepoFiles(string repoAuthor, string repoName, string repoBranch)
+        public static async void returnRepoFiles(string repoAuthor, string repoName, string repoBranch, string libFolder)
         {
-            var repo = String.Format("{0}/{1}", repoAuthor, repoName);
-            string url = String.Format("https://api.github.com/repos/{0}/contents", repo);
-            dynamic data = JLDN.network.webResParser.fetchWebResAsync(url);
-            Console.WriteLine("Web server: Fetching lib contents");
+            Console.WriteLine("Fetching REPO");
+            var httpClient = new HttpClient();
+            httpClient.DefaultRequestHeaders.UserAgent.Add(
+                new ProductInfoHeaderValue("MyApplication", "1"));
+            Console.WriteLine("Net: HTTP User Agent Header Established");
 
-            dynamic jsonData = toJson(data);
-            blobList(jsonData);
-            return data;
+            var repo = String.Format("{0}/{1}", repoAuthor, repoName);
+            var contentsUrl = String.Format("https://api.github.com/repos/{0}/contents", repo);
+
+            var contentsJson = network.webResParser.fetchWebResAsync(contentsUrl);
+            var contents = (JArray)JsonConvert.DeserializeObject(contentsJson);
+
+
+            foreach (var file in contents)
+            {
+                var fileType = (string)file["type"];
+                if (fileType == "dir")
+                {
+                    var folders = (string)file["path"];
+                    //Console.WriteLine(folders);
+                    // use this URL to list the contents of the folder
+                    Console.WriteLine(libFolder);
+                    if (folders ==libFolder)
+                    {
+                        Console.WriteLine("DIR: " + folders);
+                    }
+                    else
+                    {
+                        Console.WriteLine("Error: Manifest file library directory doesn't match.");
+                    }
+                }
+                //else if (fileType == "file")
+                //{
+                //    var downloadUrl = (string)file["download_url"];
+                //    // use this URL to download the contents of the file
+                //    Console.WriteLine($"DOWNLOAD: {downloadUrl}");
+                //}
+            }
 
         }
     }
