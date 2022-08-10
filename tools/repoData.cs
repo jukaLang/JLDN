@@ -96,9 +96,14 @@ namespace JLDN.tools
                                 var dataName = (string)data["name"];
                                 var dataContent = (string)data["download_url"];
                                 var dataContentString = network.webResParser.fetchWebResAsync(dataContent);
-                                network.installPackage.CreateFileForModule(packageInfo, dataName, dataContentString);
+                                network.installPackage.CreateFileForModule(packageInfo, dataName, dataContentString, "\\");
                             }
-
+                            if (dataType == "dir")
+                            {
+                                var dataName = (string)data["name"];
+                                network.installPackage.CreateSubfolderForModule(packageInfo, dataName);
+                                
+                            }
                         }
                         return;
                     }

@@ -51,9 +51,9 @@ namespace JLDN.network
 
         }
 
-        public static void CreateFileForModule(PACKAGE_INFO package, string fileName, dynamic content)
+        public static void CreateFileForModule(PACKAGE_INFO package, string fileName, dynamic content, string relativeDirectory)
         {
-            string path = Directory.GetCurrentDirectory() + "\\juka_modules\\" + package.package_name;
+            string path = Directory.GetCurrentDirectory() + "\\juka_modules\\" + package.package_name + relativeDirectory;
 
             if(Directory.Exists(path))
             {
@@ -74,6 +74,13 @@ namespace JLDN.network
 
                 }
             }
+        }
+
+        public static void CreateSubfolderForModule(PACKAGE_INFO package, string folderName)
+        {
+            string path = Directory.GetCurrentDirectory() + "\\juka_modules\\" + package.package_name + folderName;
+            if (Directory.Exists(path)) { return; } 
+            else { Directory.CreateDirectory(path); }
         }
 
         public static void installFlags(String[] args)
