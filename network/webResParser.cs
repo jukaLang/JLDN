@@ -12,6 +12,7 @@ namespace JLDN.network
         public static string fetchWebResAsync(string url)
         {
             System.Net.WebClient client = new System.Net.WebClient();
+            client.Headers.Add("User-Agent: Other");
             byte[] data = client.DownloadData(url);
             String html = System.Text.Encoding.UTF8.GetString(data);
             return html;

@@ -43,10 +43,24 @@ namespace JLDN.network
             Console.WriteLine("FS: Writing Cached LIB file");
             using (FileStream fs = File.Create(path))
             {
-                byte[] info = new UTF8Encoding(true).GetBytes("");
+                byte[] info = new UTF8Encoding(true).GetBytes(JLDN.tools.cacheFile.encryptFile("safasf"));
+
                 fs.Write(info, 0, info.Length);
                 Console.WriteLine(String.Format("\n\nSucessfuly Installed: {0}@{1}", package.package_name, package.version));
             }
+
+        }
+
+        public static void installFlags(String[] args)
+        {
+            bool isFlags = false;
+            if(args.Length >= 4) isFlags = true;
+            List<string> allowedFlags = new List<string>
+            {
+                "--info",
+                "-i"
+            };
+
 
         }
         public static void installPackageFromManifest(string manifest)
