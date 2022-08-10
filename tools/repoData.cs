@@ -101,6 +101,7 @@ namespace JLDN.tools
                             if (dataType == "dir")
                             {
                                 var dataName = (string)data["name"];
+                                Console.WriteLine("DIRECTORY FOUND:  " + dataName);
                                 network.installPackage.CreateSubfolderForModule(packageInfo, dataName);
                                 
                             }
