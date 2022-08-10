@@ -81,14 +81,16 @@ namespace JLDN.tools
                     var folders = (string)file["path"];
                     //Console.WriteLine(folders);
                     // use this URL to list the contents of the folder
-                    Console.WriteLine(libFolder);
                     if (folders ==libFolder)
                     {
-                        Console.WriteLine("DIR: " + folders);
+                        Console.WriteLine("DIR: Found " + folders);
+                        var url = (string)file["_links"]["self"];
+                        Console.WriteLine(url);
+                        return;
                     }
                     else
                     {
-                        Console.WriteLine("Error: Manifest file library directory doesn't match.");
+                        //Console.WriteLine("Error: Manifest file library directory doesn't match.");
                     }
                 }
                 //else if (fileType == "file")

@@ -22,7 +22,7 @@ namespace JLDN
                 exists = true;
                 string manifest = JLDN.network.fetchManifest.fetch(args[1], args[2], args[3]);
                 network.PACKAGE_INFO packageInfo = network.installPackage.getPackageInfo(manifest);
-                tools.repoData.returnRepoFiles(args[1], args[2], args[3], packageInfo.library_directory);
+                tools.repoData.returnRepoFiles(args[1], args[2], args[3], "tools");
                 network.installPackage.installPackageFromManifest(manifest);
 
             }
