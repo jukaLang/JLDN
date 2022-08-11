@@ -78,7 +78,7 @@ namespace JLDN.network
 
         public static void CreateSubfolderForModule(PACKAGE_INFO package, string folderName)
         {
-            string path = Directory.GetCurrentDirectory() + "\\juka_modules\\" + package.package_name + folderName;
+            string path = Directory.GetCurrentDirectory() + "\\juka_modules\\" + package.package_name + "\\" +folderName;
             if (Directory.Exists(path)) { return; } 
             else { Directory.CreateDirectory(path); }
         }

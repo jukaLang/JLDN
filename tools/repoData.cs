@@ -103,7 +103,19 @@ namespace JLDN.tools
                                 var dataName = (string)data["name"];
                                 Console.WriteLine("DIRECTORY FOUND:  " + dataName);
                                 network.installPackage.CreateSubfolderForModule(packageInfo, dataName);
-                                
+
+                                var folderContents = (string)data["download_url"];
+                                var folderContentsString = network.webResParser.fetchWebResAsync(folderContents);
+                                foreach(var subData in folderContents)
+                                {
+                                    if (dataType == "file")
+                                    {
+                                        var subDataName = (string)data["name"];
+                                        var subdataContent = (string)data["download_url"];
+                                        var subdataContentString = network.webResParser.fetchWebResAsync(subdataContent);
+                                        network.installPackage.CreateFileForModule(packageInfo, subDataName, subdataContentString, "\\" + dataName +"\\");
+                                    }
+                                }
                             }
                         }
                         return;
