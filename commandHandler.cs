@@ -9,6 +9,11 @@ namespace JLDN
     public class commandHandler
     {
         string NO_COMMNAD_ARGUMENTS = "Juka Language Decentralized Network\nVersion: 0.0.0";
+
+        bool IsNotInArray(String[] array, string element)
+        {
+            return !Array.Exists(array, e => e == element);
+        }
         public bool handler(String[] args)
         {
             bool exists = false;
@@ -27,10 +32,46 @@ namespace JLDN
             if (args.Length >= 3 && args[0].ToLower() == "install")
             {
                 exists = true;
-                string manifest = JLDN.network.fetchManifest.fetch(args[1], args[2], args[3]);
-                network.PACKAGE_INFO packageInfo = network.installPackage.getPackageInfo(manifest);
-                tools.repoData.returnRepoFiles(args[1], args[2], args[3], "tools", packageInfo);
-                network.installPackage.installPackageFromManifest(manifest);
+                try
+                {
+                    string manifest = JLDN.network.fetchManifest.fetch(args[1], args[2], args[3]);
+                    network.PACKAGE_INFO packageInfo = network.installPackage.getPackageInfo(manifest);
+                    tools.repoData.returnRepoFiles(args[1], args[2], args[3], "tools", packageInfo);
+                    network.installPackage.installPackageFromManifest(manifest);
+                }
+                catch(System.Net.WebException e)
+                {
+                    Console.WriteLine("Error! Package does not exist in the current API");
+                }
+            }
+
+            if(args.Length >= 2 && args[0].ToLower() == "bump")
+            {
+                if (args[1].ToLower() == "jldn")
+                {
+                    if (args[2].Length != 0)
+                    {
+                        List<String> jldnVersions = network.bumpVersion.getJldnReleases();
+                        bool validVersion = jldnVersions.Contains(args[2]);
+                        if (validVersion)
+                        {
+                            Console.WriteLine("\n\n\tInstalling Version: " + args[2]);
+                        }
+                        else
+                        {
+                            Console.WriteLine("Error: Unkown Version");
+                        }
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Error: Argument count invalid");
+                }
+                if (args[1].ToLower() == "juka")
+                {
+                    string[] jukaVersions = network.bumpVersion.getJukaLanguageReleases();
+                }
+                exists = true;
 
             }
 
