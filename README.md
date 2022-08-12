@@ -28,7 +28,7 @@ The manifest is formated as the following:
 version: 0.0.1
 package_name: name
 package_description: descr
-library_directory: \lib
+library_directory: lib
 main_repo_branch: main
 repo_name: JLDN
 repo_author_name: jukaLang
