@@ -8,7 +8,7 @@ namespace JLDN
 {
     public class commandHandler
     {
-        string NO_COMMNAD_ARGUMENTS = "Juka Language Decentralized Network\nVersion: 0.0.0";
+        string NO_COMMNAD_ARGUMENTS = "Juka Language Decentralized Network\nVersion: " + JLDN.VERSION_DATA.version;
 
         bool IsNotInArray(String[] array, string element)
         {
@@ -16,78 +16,99 @@ namespace JLDN
         }
         public bool handler(String[] args)
         {
-            bool exists = false;
-            if (args.Length == 0) { Console.WriteLine(NO_COMMNAD_ARGUMENTS); exists = true; }
-            if (args.Length > 0 && args[0].ToLower() == "init") { manifestInitalizer.initalizeManifest(); exists = true; }
-            if (args.Length > 1 && args[0].ToLower() == "dev" && args[1].ToLower()=="cdn") { Console.WriteLine(Directory.GetCurrentDirectory()); exists = true; }
-            if (args.Length == 1 && args[0].ToLower() == "help") { JLDN.handler.helpHandler.returnHelp(); exists = true; } 
-            if (args.Length == 1 && args[0].ToLower() == "info")
+            try
             {
-                Console.WriteLine(JLDN.VERSION_DATA.version);
-                Console.WriteLine(JLDN.VERSION_DATA.releaseDate);
-                Console.WriteLine(JLDN.VERSION_DATA.copywrite);
-                exists = true;
-            }
-            // jldn install REPO_AUTHOR REPO_NAME REPO_BRANCH --FLAG
-            if (args.Length >= 3 && args[0].ToLower() == "install")
-            {
-                exists = true;
-                try
+                bool exists = false;
+                if (args.Length == 0) { Console.WriteLine(NO_COMMNAD_ARGUMENTS); exists = true; }
+                if (args.Length > 0 && args[0].ToLower() == "init") { manifestInitalizer.initalizeManifest(); exists = true; }
+                if (args.Length > 1 && args[0].ToLower() == "dev" && args[1].ToLower() == "cdn") { Console.WriteLine(Directory.GetCurrentDirectory()); exists = true; }
+                if (args.Length == 1 && args[0].ToLower() == "help") { JLDN.handler.helpHandler.returnHelp(); exists = true; }
+                if (args.Length == 1 && args[0].ToLower() == "info")
                 {
-                    string manifest = JLDN.network.fetchManifest.fetch(args[1], args[2], args[3]);
-                    network.PACKAGE_INFO packageInfo = network.installPackage.getPackageInfo(manifest);
-                    tools.repoData.returnRepoFiles(args[1], args[2], args[3], "tools", packageInfo);
-                    network.installPackage.installPackageFromManifest(manifest);
+                    Console.WriteLine(JLDN.VERSION_DATA.version);
+                    Console.WriteLine(JLDN.VERSION_DATA.releaseDate);
+                    Console.WriteLine(JLDN.VERSION_DATA.copywrite);
+                    exists = true;
                 }
-                catch(System.Net.WebException e)
+                if (args.Length == 1 && args[0].ToLower() == "update" || args[0].ToLower() == "upgrade")
                 {
-                    Console.WriteLine("Error! Package does not exist in the current API");
-                }
-            }
+                    List<String> jldnVersions = network.bumpVersion.getJldnReleases();
 
-            if(args.Length >= 2 && args[0].ToLower() == "bump")
-            {
-                if (args[1].ToLower() == "jldn")
+                    network.bumpVersion.installVersion(network.THIRD_PARTIES.JLDN, jldnVersions[jldnVersions.Count - 1]);
+
+                    exists = true;
+
+                }
+                // jldn install REPO_AUTHOR REPO_NAME REPO_BRANCH --FLAG
+                if (args.Length >= 3 && args[0].ToLower() == "install")
                 {
-                    if (args[2].Length != 0)
+                    exists = true;
+                    try
                     {
-                        List<String> jldnVersions = network.bumpVersion.getJldnReleases();
-                        bool validVersion = jldnVersions.Contains(args[2]);
-                        if (validVersion)
-                        {
-                            Console.WriteLine("\nInstalling Version: " + args[2]);
-                            network.bumpVersion.installVersion(network.THIRD_PARTIES.JLDN, args[2]);
-                        }
-                        else
-                        {
-                            Console.WriteLine("\nError: Unkown Version");
-                            network.bumpVersion.listJldnReleases(jldnVersions);
-                        }
+                        string manifest = JLDN.network.fetchManifest.fetch(args[1], args[2], args[3]);
+                        network.PACKAGE_INFO packageInfo = network.installPackage.getPackageInfo(manifest);
+                        tools.repoData.returnRepoFiles(args[1], args[2], args[3], "tools", packageInfo);
+                        network.installPackage.installPackageFromManifest(manifest);
+                    }
+                    catch (System.Net.WebException e)
+                    {
+                        Console.WriteLine("Error! Package does not exist in the current API");
                     }
                 }
-                if (args[1].ToLower() == "juka")
+
+                if (args.Length >= 2 && args[0].ToLower() == "bump")
                 {
-                    if (args[2].Length != 0)
+                    if (args[1].ToLower() == "jldn")
                     {
-                        List<String> jukaVersions = network.bumpVersion.getJukaLanguageReleases();
-                        bool validVersion = jukaVersions.Contains(args[2]);
-                        if (validVersion)
+                        if (args[2].Length != 0 || args[2].ToLower() != "latest")
                         {
-                            Console.WriteLine("\nInstalling Version: " + args[2]);
-                            network.bumpVersion.installVersion(network.THIRD_PARTIES.juka, args[2]);
+                            List<String> jldnVersions = network.bumpVersion.getJldnReleases();
+                            bool validVersion = jldnVersions.Contains(args[2]);
+                            if (validVersion)
+                            {
+                                Console.WriteLine("\nInstalling Version: " + args[2]);
+                                network.bumpVersion.installVersion(network.THIRD_PARTIES.JLDN, args[2]);
+                            }
+                            else
+                            {
+                                Console.WriteLine("\nError: Unkown Version");
+                                network.bumpVersion.listJldnReleases(jldnVersions);
+                            }
                         }
-                        else
+                        else if (args[2].ToLower() != "latest")
                         {
-                            Console.WriteLine("\nError: Unkown Version");
-                            network.bumpVersion.listJukaReleases(jukaVersions);
+                            List<String> jldnVersions = network.bumpVersion.getJldnReleases();
+
+                            network.bumpVersion.installVersion(network.THIRD_PARTIES.JLDN, jldnVersions[jldnVersions.Count - 1]);
                         }
                     }
+                    if (args[1].ToLower() == "juka")
+                    {
+                        if (args[2].Length != 0)
+                        {
+                            List<String> jukaVersions = network.bumpVersion.getJukaLanguageReleases();
+                            bool validVersion = jukaVersions.Contains(args[2]);
+                            if (validVersion)
+                            {
+                                Console.WriteLine("\nInstalling Version: " + args[2]);
+                                network.bumpVersion.installVersion(network.THIRD_PARTIES.juka, args[2]);
+                            }
+                            else
+                            {
+                                Console.WriteLine("\nError: Unkown Version");
+                                network.bumpVersion.listJukaReleases(jukaVersions);
+                            }
+                        }
+                    }
+                    exists = true;
+
                 }
-                exists = true;
+                return exists;
 
             }
+            catch (System.IndexOutOfRangeException e)
+            { return true; }
 
-            return exists;
         }
         public void commandDoesntExist(bool validity)
         {
