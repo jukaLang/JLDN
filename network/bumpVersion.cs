@@ -146,7 +146,7 @@ namespace JLDN.network
                         var name = "PATH";
                         var scope = EnvironmentVariableTarget.Machine; // or User
                         var oldValue = Environment.GetEnvironmentVariable(name, scope);
-                        var newValue = oldValue + targetFolder + "\\";
+                        var newValue = oldValue + targetFolder + "\\;";
                         Environment.SetEnvironmentVariable(name, newValue, scope);
                         Console.WriteLine("Succesfuly instaled version " + targetVersion + " of Juka");
 
