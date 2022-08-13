@@ -56,6 +56,7 @@ namespace JLDN
                         if (validVersion)
                         {
                             Console.WriteLine("\nInstalling Version: " + args[2]);
+                            network.bumpVersion.installVersion(network.THIRD_PARTIES.JLDN, args[2]);
                         }
                         else
                         {
@@ -68,8 +69,8 @@ namespace JLDN
                 {
                     if (args[2].Length != 0)
                     {
-                        List<String> jldnVersions = network.bumpVersion.getJukaLanguageReleases();
-                        bool validVersion = jldnVersions.Contains(args[2]);
+                        List<String> jukaVersions = network.bumpVersion.getJukaLanguageReleases();
+                        bool validVersion = jukaVersions.Contains(args[2]);
                         if (validVersion)
                         {
                             Console.WriteLine("\nInstalling Version: " + args[2]);
@@ -78,7 +79,7 @@ namespace JLDN
                         else
                         {
                             Console.WriteLine("\nError: Unkown Version");
-                            network.bumpVersion.listJukaReleases(jldnVersions);
+                            network.bumpVersion.listJukaReleases(jukaVersions);
                         }
                     }
                 }
