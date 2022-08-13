@@ -59,3 +59,11 @@ Services:
 Flags:
 
 **NO FLAGS WERE FOUND FOR THIS COMMAND**
+
+# How to install
+## Windows
+To install on windows, all you have to do is simply install the `win_installer.exe` and run it and everything else will be automated! You can find that file in the release assests.
+
+## Linux
+
+**COMING SOON**
