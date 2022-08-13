@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http.Headers;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -77,10 +78,21 @@ namespace JLDN.network
 
         public static void installVersion(THIRD_PARTIES service, string targetVersion)
         {
-            // INSTAL JUKA
-            if(service == THIRD_PARTIES.juka) {  }
-            // INSTALL JLDN
-            if(service == THIRD_PARTIES.JLDN) {  }
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                // INSTAL JUKA
+                if (service == THIRD_PARTIES.juka)
+                { 
+                    
+                }
+                // INSTALL JLDN
+                if (service == THIRD_PARTIES.JLDN) { }
+            }
+            else
+            {
+                Console.WriteLine("Sorry. JLDN 'bump' function is only avaliable on the windows operating system in this version.");
+            }
+
         }
     }
 }
