@@ -134,16 +134,35 @@ namespace JLDN.network
                     data.CURRENT_VERSION = targetVersion;
                     try
                     {
+                        File.Delete(targetFolder + "\\Juka.exe");
+                        File.Delete(targetFolder + "\\JukaCompiler.pdb");
                         WebClient client = new WebClient();
-                        client.DownloadFile("https://github.com/jukaLang/juka/releases/download/"+ targetVersion + "/Juka_Windows_X86_" + targetVersion + ".zip", targetFolder + "\\JUKA_" + targetVersion + "_WINDOWS_X86.zip");
-                        Console.WriteLine("Succesfuly instaled version " + targetVersion + " of Juka");
+                        client.DownloadFile("https://github.com/jukaLang/juka/releases/download/" + targetVersion + "/Juka_Windows_X86_" + targetVersion + ".zip", targetFolder + "\\JUKA_" + targetVersion + "_WINDOWS_X86.zip");
 
                         ZipFile.ExtractToDirectory(targetFolder + "\\JUKA_" + targetVersion + "_WINDOWS_X86.zip", targetFolder);
                         File.Delete(targetFolder + "\\JUKA_" + targetVersion + "_WINDOWS_X86.zip");
+
+
+                        var name = "PATH";
+                        var scope = EnvironmentVariableTarget.Machine; // or User
+                        var oldValue = Environment.GetEnvironmentVariable(name, scope);
+                        var newValue = oldValue + targetFolder + "\\";
+                        Environment.SetEnvironmentVariable(name, newValue, scope);
+                        Console.WriteLine("Succesfuly instaled version " + targetVersion + " of Juka");
+
+                    }
+                    catch (System.Security.SecurityException e)
+                    {
+                        Console.WriteLine("Privillage Error: Please run this command from a Admin Console to continune with this process");
+                    }
+                    catch (IOException e)
+                    {
+                        Console.WriteLine("This version is already installed.");
                     }
                     catch (Exception e)
                     {
                         Console.WriteLine("Look's like there was an error from our execution service.");
+                        Console.WriteLine(e);
                     }
                 }
             // INSTALL JLDN
