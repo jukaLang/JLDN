@@ -9,6 +9,11 @@ using System.Threading.Tasks;
 
 namespace JLDN.network
 {
+    enum THIRD_PARTIES
+    { 
+        juka,
+        JLDN
+    }
     internal class bumpVersion
     {
         /*
@@ -20,7 +25,7 @@ namespace JLDN.network
  * 
  * 
  */
-        public static string[] getJukaLanguageReleases()
+        public static List<string> getJukaLanguageReleases()
         {
             string data = network.webResParser.fetchWebResAsync("https://api.github.com/repos/jukaLang/juka/releases");
             var httpClient = new HttpClient();
@@ -28,19 +33,13 @@ namespace JLDN.network
                 new ProductInfoHeaderValue("MyApplication", "1"));
 
             var contents = (JArray)JsonConvert.DeserializeObject(data);
-            string[] avaliable_versions = { };
-            Console.WriteLine("\n\tCurrent Juka Avaliable Versions: \n");
+            List<string> avaliable_versions = new List<string>();
             foreach (var release in contents)
             {
                 var releaseTag = (string)release["tag_name"];
-                avaliable_versions.Append<string>(releaseTag);
-                Console.WriteLine("\t\t" + releaseTag);
+                avaliable_versions.Add(releaseTag);
             }
-            if (avaliable_versions.Length == 0)
-            {
-                Console.WriteLine("\n\nThere are no more currently avaliable versions.");
-            }
-            return avaliable_versions.ToArray();
+            return avaliable_versions;
         }
         public static List<string> getJldnReleases()
         {
@@ -66,6 +65,22 @@ namespace JLDN.network
             {
                 Console.WriteLine("\t - " + version);
             }
+        }
+        public static void listJukaReleases(List<string> data)
+        {
+            Console.WriteLine("\nCurrent Juka Avaliable Versions: \n");
+            foreach (var version in data)
+            {
+                Console.WriteLine("\t - " + version);
+            }
+        }
+
+        public static void installVersion(THIRD_PARTIES service, string targetVersion)
+        {
+            // INSTAL JUKA
+            if(service == THIRD_PARTIES.juka) {  }
+            // INSTALL JLDN
+            if(service == THIRD_PARTIES.JLDN) {  }
         }
     }
 }

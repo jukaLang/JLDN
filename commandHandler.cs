@@ -64,13 +64,23 @@ namespace JLDN
                         }
                     }
                 }
-                else
-                {
-                    Console.WriteLine("Error: Argument count invalid");
-                }
                 if (args[1].ToLower() == "juka")
                 {
-                    string[] jukaVersions = network.bumpVersion.getJukaLanguageReleases();
+                    if (args[2].Length != 0)
+                    {
+                        List<String> jldnVersions = network.bumpVersion.getJukaLanguageReleases();
+                        bool validVersion = jldnVersions.Contains(args[2]);
+                        if (validVersion)
+                        {
+                            Console.WriteLine("\nInstalling Version: " + args[2]);
+                            network.bumpVersion.installVersion(network.THIRD_PARTIES.juka, args[2]);
+                        }
+                        else
+                        {
+                            Console.WriteLine("\nError: Unkown Version");
+                            network.bumpVersion.listJukaReleases(jldnVersions);
+                        }
+                    }
                 }
                 exists = true;
 
