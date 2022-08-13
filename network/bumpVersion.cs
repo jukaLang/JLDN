@@ -51,16 +51,21 @@ namespace JLDN.network
             
             var contents = (JArray)JsonConvert.DeserializeObject(data);
             List<string> avaliable_versions = new List<string>();
-            Console.WriteLine("\n\tCurrent JLDN Avaliable Versions: \n");
             foreach(var release in contents)
             {
                 var releaseTag = (string)release["tag_name"];
                 avaliable_versions.Add(releaseTag);
-                Console.WriteLine("\t\t"+releaseTag);
             }
             return avaliable_versions;
+        }
 
-
+        public static void listJldnReleases(List<string> data)
+        {
+            Console.WriteLine("\nCurrent JLDN Avaliable Versions: \n");
+            foreach(var version in data)
+            {
+                Console.WriteLine("\t - " + version);
+            }
         }
     }
 }

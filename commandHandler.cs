@@ -55,11 +55,12 @@ namespace JLDN
                         bool validVersion = jldnVersions.Contains(args[2]);
                         if (validVersion)
                         {
-                            Console.WriteLine("\n\n\tInstalling Version: " + args[2]);
+                            Console.WriteLine("\nInstalling Version: " + args[2]);
                         }
                         else
                         {
-                            Console.WriteLine("Error: Unkown Version");
+                            Console.WriteLine("\nError: Unkown Version");
+                            network.bumpVersion.listJldnReleases(jldnVersions);
                         }
                     }
                 }
