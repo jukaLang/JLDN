@@ -51,9 +51,11 @@ Flags:
 ## Bump Usage 
 *Reverts to goes to specified **JLDN** version*
 ```bash
-jldn bump {version}
+jldn bump {service} {version}
 ```
 
+Services:
+	**JLDN**<br>**Juka**
 Flags:
 
 **NO FLAGS WERE FOUND FOR THIS COMMAND**
