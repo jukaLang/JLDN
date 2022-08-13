@@ -3,6 +3,7 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO.Compression;
 using System.Linq;
 using System.Net;
 using System.Net.Http.Headers;
@@ -126,18 +127,25 @@ namespace JLDN.network
                 if (service == THIRD_PARTIES.juka)
                 {
                     var targetFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\JLDN";
-                    var configFile = "juka.config.yaml";
+                    var configFile = "JLDN.config.yaml";
                     var path = targetFolder + "\\" + configFile;
                     var fileStream = new FileStream(path, FileMode.Open, FileAccess.Read);
                     var data = deserializeConfig(getConfigData("juka"));
                     data.CURRENT_VERSION = targetVersion;
+                    try
+                    {
+                        WebClient client = new WebClient();
+                        client.DownloadFile("https://github.com/jukaLang/juka/releases/download/"+ targetVersion + "/Juka_Windows_X86_" + targetVersion + ".zip", targetFolder + "\\JUKA_" + targetVersion + "_WINDOWS_X86.zip");
+                        Console.WriteLine("Succesfuly instaled version " + targetVersion + " of Juka");
 
-                    WebClient client = new WebClient();
-                    //client.DownloadFile(@"https://github.com/jukaLang/JLDN/releases/download/" + targetVersion + "/win_installer.exe", "win_installer.exe");
-
+                        ZipFile.ExtractToDirectory(targetFolder + "\\JUKA_" + targetVersion + "_WINDOWS_X86.zip", targetFolder);
+                        File.Delete(targetFolder + "\\JUKA_" + targetVersion + "_WINDOWS_X86.zip");
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine("Look's like there was an error from our execution service.");
+                    }
                 }
-
-            
             // INSTALL JLDN
             if (service == THIRD_PARTIES.JLDN)
             {
