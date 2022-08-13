@@ -7,6 +7,7 @@ using System.Net.Http.Headers;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using YamlDotNet.Serialization;
 
 namespace JLDN.network
 {
@@ -75,15 +76,42 @@ namespace JLDN.network
                 Console.WriteLine("\t - " + version);
             }
         }
+        
+        public static CONFIG deserializeConfig(dynamic data)
+        {
+            JLDN.CONFIG config = new JLDN.CONFIG();
+            var deserializer = new DeserializerBuilder()
+                .Build();
+            return deserializer.Deserialize<CONFIG>(data);
+        }
+        public static string getConfigData()
+        {
+            var targetFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\JLDN";
+            var configFile = "config.yaml";
+            var path = targetFolder + "\\" + configFile;
+            return File.ReadAllText(@"" + path, Encoding.UTF8);
+        }
 
         public static void installVersion(THIRD_PARTIES service, string targetVersion)
         {
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
+
                 // INSTAL JUKA
                 if (service == THIRD_PARTIES.juka)
-                { 
-                    
+                {
+                    var targetFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\JLDN";
+                    var configFile = "config.yaml";
+                    var path = targetFolder + "\\" + configFile;
+                    var fileStream = new FileStream(path, FileMode.Open, FileAccess.Read);
+                    using(var reader = new StreamReader(fileStream, Encoding.UTF8))
+                    {
+                        string text = reader.ReadToEnd();
+                        var data = deserializeConfig(text);
+                        data.CURRENT_VERSION = targetVersion;
+                        Console.WriteLine(data.CURRENT_VERSION);
+                    }
+
                 }
                 // INSTALL JLDN
                 if (service == THIRD_PARTIES.JLDN) { }

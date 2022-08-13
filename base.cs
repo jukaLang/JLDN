@@ -39,7 +39,7 @@ namespace JLDN
                 {
                     if (File.Exists(targetFolder + "\\config.yaml"))
                     {
-                        return;
+                        
                     }
                     else
                     {
