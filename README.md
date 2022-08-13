@@ -55,7 +55,7 @@ jldn bump {service} {version}
 ```
 
 Services:
-	**JLDN**<br>**Juka**
+	<br>**JLDN**<br>**Juka**
 Flags:
 
 **NO FLAGS WERE FOUND FOR THIS COMMAND**
